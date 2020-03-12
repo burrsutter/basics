@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+        env: dev
+    spec:
+      containers:
+      - name: mycontainer
+        image: quay.io/burrsutter/myboot:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080

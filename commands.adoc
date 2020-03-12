@@ -1,0 +1,93 @@
+== Commands
+
+Let's talk about how Red Hat's OpenShift IS Kubernetes
+
+
+==== Minikube and OpenShift on GCP
+----
+kubectl version
+kubectl cluster-info
+kubectl get nodes
+----
+
+----
+kubectl get crds
+kubectl get namespaces
+kubectl get pods --all-namespaces
+----
+
+==== OpenShift comes out-of-the-box with pre-integrated:
+
+* an ingress controller based on ha-proxy
+
+----
+kubectl get pods --all-namespaces | grep router
+----
+
+* software defined networking
+
+----
+kubectl get pods --all-namespaces | grep sdn
+----
+
+* monitoring with grafana, promentheus, thanos
+----
+kubectl get pods --all-namespaces | grep monitoring
+----
+
+----
+kubectl create namespace stuff
+kubectl config set-context --current --namespace=stuff
+# OR
+oc project stuff
+----
+
+----
+watch kubectl get pods
+----
+
+----
+kubectl apply -f Deployment_live_ready.yaml
+kubectl get events
+----
+
+----
+kubectl exec -it $(kubectl get pods -l app=myapp,env=dev -oname) /bin/bash
+curl localhost:8080
+----
+
+----
+kubectl apply -f Service.yaml
+kubectl get services
+----
+
+----
+kubectl apply -f Ingress.yaml
+kubectl get ingress
+----
+
+----
+curl my-stuff.apps.gcp.burrsutter.dev
+----
+
+----
+while true
+do curl my-stuff.apps.gcp.burrsutter.dev
+sleep .3
+done
+----
+
+=== OpenShift Console
+
+----
+kubectl scale deployment myapp --replicas=3
+----
+
+
+----
+kubectl edit deployment myapp
+# - image: quay.io/burrsutter/quarkus-demo:1.0.0
+----
+
+
+
